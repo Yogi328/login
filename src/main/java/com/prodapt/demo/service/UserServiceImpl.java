@@ -2,6 +2,7 @@ package com.prodapt.demo.service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -68,4 +69,21 @@ public class UserServiceImpl implements UserService {
         role.setName("ROLE_ADMIN");
         return roleRepository.save(role);
     }
+   
+    @Override
+	public User getUserDetailsById(long id) {
+		Optional<User> optional = userRepository.findById(id);
+		User employee = null;
+		if (optional.isPresent()) {
+			employee = optional.get();
+		} else {
+			throw new RuntimeException(" Employee not found for id :: " + id);
+		}
+		return employee;
+	}
+
+	@Override
+	public void deleteUserDetailsById(long id) {
+		this.userRepository.deleteById(id);
+	}
 }

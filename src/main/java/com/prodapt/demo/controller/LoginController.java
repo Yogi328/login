@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -83,5 +84,22 @@ public class LoginController {
         model.addAttribute("users", users);
         return "users";
     }
+    @GetMapping("/showUpdatedUserDetails/{id}")
+	public String showFormForUpdate(@PathVariable ( value = "id") Long id, Model model) {
+		
+		// get employee from the service
+		User user = userService.getUserDetailsById(id);
+	
+		// set employee as a model attribute to pre-populate the form
+		model.addAttribute("updateduser", user);
+		return "updateuser";
+	}
+    @GetMapping("/deleteUser/{id}")
+	public String deleteUser(@PathVariable (value = "id") Long id) {
+		
+		// call delete employee method 
+		this.userService.deleteUserDetailsById(id);
+		return "redirect:/";
+	}
  
 }
