@@ -1,23 +1,34 @@
 package com.prodapt.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.prodapt.demo.entity.User;
-import com.prodapt.demo.entity.UserDetails;
+import com.prodapt.demo.exceptions.InvalidCredentialsException;
 
 public interface UserService {
-    void saveUser(UserDetails userDetails);
+	// Create
+	public User addUser(User user);
 
-    User findUserByEmail(String email);
+	// Retrieve
+	public User getUserByName(String userName);
 
-    List<UserDetails> findAllUsers();
+	// Update
+	public User updateUser(User user);
 
+	// Delete
+	public void deleteUserById(Long id);// Login
+	
 	
 
+	//login
+	public User loginUser(User user) throws InvalidCredentialsException;
 	
+	//retrieve
+	public List<User> getList();
 
+	public User getUserById(long id);
 	
-	void deleteUserDetailsById(long id);
+	Optional<User> findById(long id);
 
-	User getUserDetailsById(long id);
 }
